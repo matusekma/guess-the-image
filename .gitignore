@@ -1,15 +1,17 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#FRONTEND
+
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+guess-the-image/.pnp
 .pnp.js
 
 # testing
-/coverage
+guess-the-image-frontend/coverage
 
 # production
-/build
+guess-the-image-frontend/build
 
 # misc
 .DS_Store
