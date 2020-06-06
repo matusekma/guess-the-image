@@ -1,10 +1,14 @@
 header {
-    background-color: #a09f9f;
+    background-color: $header-background;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #16405B;
+    color: $header-color;
 
     a {
-        color: #16405B
+        color: $header-color;
+
+        &:hover {
+            color: $header-color-hover;
+        }
     }
 
     .logo {

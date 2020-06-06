@@ -14,9 +14,7 @@ const Navbar = () => {
                 </a>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-
                     <FontAwesomeIcon icon={faBars} />
-
                 </button>
 
 
