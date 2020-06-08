@@ -16,10 +16,11 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AuthController {
 
-    private AuthService authService;
-    private UserRepository userRepository;
+    private final AuthService authService;
+    private final UserRepository userRepository;
 
     public AuthController(AuthService authService, UserRepository userRepository) {
         this.authService = authService;

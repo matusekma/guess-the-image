@@ -1,35 +1,19 @@
 button.button-primary {
-  color: #16405b;
+  color: $primary-color;
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
   background: #ffffff;
   padding: 10px;
-  border: 2px solid #16405b;
+  border: 2px solid $primary-color;
   display: inline-block;
   transition: all 0.4s ease 0s;
   border-radius: 0px;
 
   &:hover {
     color: #ffffff;
-    background: #16405b;
-    border-color: #16405b;
+    background: $primary-color;
+    border-color: $primary-color;
     transition: all 0.4s ease 0s;
-  }
-}
-
-.label {
-  font-weight: bold;
-}
-
-input.input-primary {
-  font-weight: bold;
-  background: #ffffff;
-  border: 2px solid #16405b;
-  border-radius: 0px;
-
-  &:focus {
-    border: 2px solid #16405b;
-    box-shadow: none;
   }
 }

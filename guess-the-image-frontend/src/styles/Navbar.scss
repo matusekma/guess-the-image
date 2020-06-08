@@ -1,21 +1,20 @@
 header {
-    background-color: $header-background;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $header-background;
+  font-weight: 500;
+  color: $header-color;
+
+  a {
     color: $header-color;
 
-    a {
-        color: $header-color;
-
-        &:hover {
-            color: $header-color-hover;
-        }
+    &:hover {
+      color: $header-color-hover;
     }
+  }
 
-    .logo {
-        width: 70px; 
-        height: 30px;
-        object-fit: cover;
-        object-position: center;
-    }
+  .logo {
+    width: 70px;
+    height: 30px;
+    object-fit: cover;
+    object-position: center;
+  }
 }
-

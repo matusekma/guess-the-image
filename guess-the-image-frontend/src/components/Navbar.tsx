@@ -8,8 +8,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../images/logo.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../actions/auth/actionCreators";
+import { axiosInstance } from "../apiCalls/axiosConfig";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const logoutUser = () => {
+    localStorage.removeItem("token");
+    axiosInstance.defaults.headers["Authorization"] = undefined;
+    dispatch(logout());
+  };
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
@@ -54,11 +64,12 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">
+                  <span className="mr-2">User</span>
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
+                <Link to="/" onClick={logoutUser} className="nav-link">
                   <FontAwesomeIcon icon={faSignOutAlt} />
                 </Link>
               </li>
