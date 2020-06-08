@@ -28,63 +28,84 @@ const RegisterForm = ({ register, message }: Props) => {
 
   return (
     <form onSubmit={(e) => checkAndSubmit(e)}>
-      <div className="form-group">
-        <input
-          type="text"
-          className="form-control input-primary"
-          aria-describedby="Username"
-          placeholder="Felhasználónév*"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <div className="row">
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control input-primary"
+              aria-describedby="Username"
+              placeholder="Felhasználónév*"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="email"
+              className="form-control input-primary"
+              aria-describedby="Email"
+              placeholder="E-mail*"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <input
-          type="text"
-          className="form-control input-primary"
-          aria-describedby="First name"
-          placeholder="Keresztnév"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+      <div className="row">
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control input-primary"
+              aria-describedby="First name"
+              placeholder="Keresztnév"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control input-primary"
+              aria-describedby="Last name"
+              placeholder="Vezetéknév"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <input
-          type="text"
-          className="form-control input-primary"
-          aria-describedby="Last name"
-          placeholder="Vezetéknév"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control input-primary"
+              placeholder="Jelszó*"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <input
-          type="email"
-          className="form-control input-primary"
-          aria-describedby="Email"
-          placeholder="E-mail*"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="password"
-          className="form-control input-primary"
-          placeholder="Jelszó*"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="password"
-          className="form-control input-primary"
-          placeholder="Jelszó ismételten*"
-          value={passwordRepeat}
-          onChange={(e) => setPasswordRepeat(e.target.value)}
-        />
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-6">
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control input-primary"
+              placeholder="Jelszó ismételten*"
+              value={passwordRepeat}
+              onChange={(e) => setPasswordRepeat(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="mb-4 text-center">
