@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PropsFromRedux } from "../containers/LoginFormContainer";
-import { useHistory } from "react-router-dom";
 
 interface Props extends PropsFromRedux {}
 

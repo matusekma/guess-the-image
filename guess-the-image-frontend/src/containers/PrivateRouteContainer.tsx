@@ -9,7 +9,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = () => ({});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

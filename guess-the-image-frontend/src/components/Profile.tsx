@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getProfileCall } from "../apiCalls/userApiCalls";
+import ProfileData from "../DTO/user/ProfileData";
 
 const Profile = () => {
+  const [profileData, setProfileData] = useState<ProfileData | undefined>();
+
   useEffect(() => {
-    getProfile();
+    getProfileCall().then((pData) => setProfileData(pData));
   }, []);
-  return <div>Profile</div>;
+
+  return <div>{profileData && profileData.email}</div>;
 };
 
 export default Profile;
