@@ -16,7 +16,6 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final AuthService authService;
