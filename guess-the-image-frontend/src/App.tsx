@@ -8,6 +8,7 @@ import PrivateRouteContainer from "./containers/PrivateRouteContainer";
 import NotFound from "./components/NotFound";
 import { createBrowserHistory } from "history";
 import Profile from "./components/Profile";
+import Drawer from "./components/Drawer";
 
 export const history = createBrowserHistory();
 
@@ -28,6 +29,15 @@ function App() {
         </PrivateRouteContainer>
         <PrivateRouteContainer path="/posts">Posztok</PrivateRouteContainer>
         <PrivateRouteContainer path="/archive">Archívum</PrivateRouteContainer>
+        <PrivateRouteContainer exact path="/new">
+          Feltöltés/rajzolás
+        </PrivateRouteContainer>
+        <PrivateRouteContainer path="/new/draw">
+          <Drawer />
+        </PrivateRouteContainer>
+        <PrivateRouteContainer path="/new/upload">
+          Kép feltöltés
+        </PrivateRouteContainer>
         <PrivateRouteContainer path="/profile">
           <Profile />
         </PrivateRouteContainer>

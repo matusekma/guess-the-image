@@ -64,7 +64,6 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">
-                  <span className="mr-2">User</span>
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
               </li>
