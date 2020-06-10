@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound";
 import { createBrowserHistory } from "history";
 import Profile from "./components/Profile";
 import Drawer from "./components/Drawer";
+import NewPostModePicker from "./components/NewPostModePicker";
 
 export const history = createBrowserHistory();
 
@@ -30,7 +31,7 @@ function App() {
         <PrivateRouteContainer path="/posts">Posztok</PrivateRouteContainer>
         <PrivateRouteContainer path="/archive">Archívum</PrivateRouteContainer>
         <PrivateRouteContainer exact path="/new">
-          Feltöltés/rajzolás
+          <NewPostModePicker />
         </PrivateRouteContainer>
         <PrivateRouteContainer path="/new/draw">
           <Drawer />

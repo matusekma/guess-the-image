@@ -1,4 +1,8 @@
 header {
+  @media screen and (min-width: 892px) {
+    height: $header-height;
+  }
+
   background-color: $header-background;
   font-weight: 500;
   color: $header-color;
