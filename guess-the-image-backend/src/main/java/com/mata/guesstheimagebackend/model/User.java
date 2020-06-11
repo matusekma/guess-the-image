@@ -1,5 +1,6 @@
 package com.mata.guesstheimagebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +43,24 @@ public class User {
     @Email(message = "Invalid e-mail")
     @Column(unique=true)
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+    private List<Post> posts;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setUser(this);
+    }
+
+    public void addPost(Post post) {
+        posts.add(post);
+        post.setUser(this);
+    }
 
    public User(String username, String firstName, String lastName, String password, String email) {
        this.username = username;
