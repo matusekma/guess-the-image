@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/me")
+    @GetMapping("/users/me")
     public ResponseEntity<UserResponse> me(){
         User me = userService.getAuthenticatedUser().orElseThrow(() -> new UsernameNotFoundException("No user data!"));
         UserResponse userResponse = modelMapper.map(me, UserResponse.class);

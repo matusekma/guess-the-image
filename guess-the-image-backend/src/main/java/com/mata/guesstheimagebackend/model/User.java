@@ -1,5 +1,6 @@
 package com.mata.guesstheimagebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -44,12 +45,12 @@ public class User {
     @Column(unique=true)
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Post> posts;
 
     public void addComment(Comment comment) {

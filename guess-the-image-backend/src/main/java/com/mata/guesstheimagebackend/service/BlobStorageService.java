@@ -1,15 +1,19 @@
 package com.mata.guesstheimagebackend.service;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.models.BlobListDetails;
+import com.azure.storage.blob.models.ListBlobsOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -47,17 +51,6 @@ public class BlobStorageService implements IStorageService {
         blobClient.upload(file.getInputStream(), file.getSize());
 
         return blobClient.getBlobUrl();
-    }
-
-    @Override
-    public Stream<Path> loadAll() {
-        return null;
-    }
-
-    @Override
-    public String load(String filename) {
-        return "";
-        //blobServiceClient.getb
     }
 
 }
