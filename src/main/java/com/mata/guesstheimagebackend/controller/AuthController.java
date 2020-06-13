@@ -16,6 +16,7 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class AuthController {
 
     private final AuthService authService;

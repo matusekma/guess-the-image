@@ -8,10 +8,10 @@ guess-the-image/.pnp
 .pnp.js
 
 # testing
-guess-the-image-frontend/coverage
+coverage/
 
 # production
-guess-the-image-frontend/build
+build/
 
 # misc
 .DS_Store

@@ -2,8 +2,6 @@ package com.mata.guesstheimagebackend.service;
 
 import com.mata.guesstheimagebackend.dao.PostRepository;
 import com.mata.guesstheimagebackend.dao.UserRepository;
-import com.mata.guesstheimagebackend.dto.AddCommentRequest;
-import com.mata.guesstheimagebackend.dto.CreatePostRequest;
 import com.mata.guesstheimagebackend.model.Comment;
 import com.mata.guesstheimagebackend.model.Post;
 import com.mata.guesstheimagebackend.model.User;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -49,7 +46,7 @@ public class PostService {
         return postRepository.findAll(pagedAndSortedByDate);
     }
 
-    public void addCommentToPost(Long postId, AddCommentRequest addCommentRequest) {
+    /*public void addCommentToPost(Long postId, AddCommentRequest addCommentRequest) {
         User me = userService.getAuthenticatedUser().orElseThrow(() -> new UsernameNotFoundException("No user data!"));
         Comment comment = new Comment();
         me.addComment(comment);
@@ -57,5 +54,5 @@ public class PostService {
         post.addComment(comment);
         postRepository.save(post);
         userRepository.save(me);
-    }
+    }*/
 }
