@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fabric } from "fabric";
 
-const Drawer = () => {
+const PostDrawer = () => {
   const [canvas, setCanvas] = useState<fabric.Canvas>();
   const [brushColor, setBrushColor] = useState<string>("#000000");
   const [lineWidth, setLineWidth] = useState<number>(2);
@@ -107,4 +107,4 @@ const Drawer = () => {
   );
 };
 
-export default Drawer;
+export default PostDrawer;

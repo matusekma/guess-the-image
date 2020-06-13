@@ -1,4 +1,4 @@
-export default interface ProfileData {
+export default interface User {
   id: string;
   username: string;
   firstName: string;

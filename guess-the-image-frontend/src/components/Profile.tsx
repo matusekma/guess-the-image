@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getProfileCall } from "../apiCalls/userApiCalls";
-import ProfileData from "../DTO/user/ProfileData";
+import User from "../DTO/user/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState<ProfileData | undefined>();
+  const [profileData, setProfileData] = useState<User | undefined>();
 
   useEffect(() => {
     getProfileCall().then((pData) => setProfileData(pData));
