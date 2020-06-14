@@ -12,3 +12,7 @@ spring:
   cache:
     jcache:
       config: classpath:ehcache.xml
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
