@@ -16,3 +16,21 @@ spring:
     url: ${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
+    initialization-mode: always
+    initialize: true
+  servlet:
+    multipart:
+      max-file-size: 3MB
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+jwt:
+  secret: ${JWT_SECRET}
+azure:
+  storage:
+    connectionString: ${AZURE_CONNECTION}
