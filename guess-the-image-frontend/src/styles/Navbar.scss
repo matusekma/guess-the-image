@@ -2,23 +2,25 @@ header {
   @media screen and (min-width: 892px) {
     height: $header-height;
   }
-
-  background-color: $header-background;
-  font-weight: 500;
-  color: $header-color;
-
-  a {
+  .navbar {
+    background-color: $header-background;
+    font-weight: 500;
     color: $header-color;
+    z-index: 1000;
 
-    &:hover {
-      color: $header-color-hover;
+    a {
+      color: $header-color;
+
+      &:hover {
+        color: $header-color-hover;
+      }
     }
-  }
 
-  .logo {
-    width: 70px;
-    height: 30px;
-    object-fit: cover;
-    object-position: center;
+    .logo {
+      width: 70px;
+      height: 30px;
+      object-fit: cover;
+      object-position: center;
+    }
   }
 }

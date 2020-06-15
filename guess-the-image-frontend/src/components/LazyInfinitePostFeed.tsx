@@ -29,7 +29,7 @@ const LazyInfinitePostFeed = () => {
   }, 100);
 
   const fetchData = async () => {
-    const postPage = await getPostsCall(page, 1);
+    const postPage = await getPostsCall(page);
     setTotalPages(postPage.totalPages);
     setPage(page + 1);
     setPostList(() => {

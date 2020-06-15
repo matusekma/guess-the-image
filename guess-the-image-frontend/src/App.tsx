@@ -22,24 +22,27 @@ function App() {
           <LoginOrRegister />
         </Route>
 
-        <PrivateRouteContainer exact path="/">
+        <Route exact path="/">
           <Redirect
             to={{
               pathname: "/posts",
+              state: { from: history.location },
             }}
           />
-        </PrivateRouteContainer>
-        <PrivateRouteContainer path="/posts">
+        </Route>
+        <PrivateRouteContainer exact path="/posts">
           <LazyInfinitePostFeed />
         </PrivateRouteContainer>
-        <PrivateRouteContainer path="/archive">Archívum</PrivateRouteContainer>
+        <PrivateRouteContainer exact path="/archive">
+          Archívum
+        </PrivateRouteContainer>
         <PrivateRouteContainer exact path="/new">
           <NewPostModePicker />
         </PrivateRouteContainer>
-        <PrivateRouteContainer path="/new/draw">
+        <PrivateRouteContainer exact path="/new/draw">
           <PostDrawer />
         </PrivateRouteContainer>
-        <PrivateRouteContainer path="/profile">
+        <PrivateRouteContainer exact path="/profile">
           <Profile />
         </PrivateRouteContainer>
         <Route path="*">

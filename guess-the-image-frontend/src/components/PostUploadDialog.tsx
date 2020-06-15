@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button,
   useMediaQuery,
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -88,7 +87,11 @@ const PostUploadDialog = ({ isOpen, close }: Props) => {
 
           {image && (
             <div className="preview-wrapper mt-2">
-              <img className="preview" src={URL.createObjectURL(image)} />
+              <img
+                className="preview"
+                src={URL.createObjectURL(image)}
+                alt="Preview of post"
+              />
             </div>
           )}
           {error ||

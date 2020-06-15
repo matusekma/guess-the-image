@@ -23,6 +23,7 @@ const responseExample = {
         lastName: "Matusek",
         email: "matusekma@asd.asd",
       },
+      archived: false,
     },
   ],
   pageable: {

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { CardMedia } from "@material-ui/core";
 
 interface Props {
