@@ -10,7 +10,7 @@ import { createBrowserHistory } from "history";
 import Profile from "./components/Profile";
 import PostDrawer from "./components/PostDrawer";
 import NewPostModePicker from "./components/NewPostModePicker";
-import PostFeed from "./components/PostFeed";
+import LazyInfinitePostFeed from "./components/LazyInfinitePostFeed";
 
 export const history = createBrowserHistory();
 
@@ -30,7 +30,7 @@ function App() {
           />
         </PrivateRouteContainer>
         <PrivateRouteContainer path="/posts">
-          <PostFeed />
+          <LazyInfinitePostFeed />
         </PrivateRouteContainer>
         <PrivateRouteContainer path="/archive">Archívum</PrivateRouteContainer>
         <PrivateRouteContainer exact path="/new">

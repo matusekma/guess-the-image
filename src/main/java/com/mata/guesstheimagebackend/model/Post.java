@@ -35,6 +35,10 @@ public class Post {
     private List<Comment> comments;
 
     @NotNull
+    @Column(columnDefinition = "boolean default false")
+    private boolean archived;
+
+    @NotNull
     @ManyToOne
     @JsonManagedReference
     private User user;

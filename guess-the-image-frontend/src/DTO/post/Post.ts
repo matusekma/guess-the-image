@@ -1,11 +1,13 @@
 import User from "../user/User";
 
 export default interface Post {
-  id: string;
+  id: number;
 
   url: string;
 
-  createdAt: Date;
+  createdAt: string;
+
+  archived: boolean;
 
   comments: Comment[];
 

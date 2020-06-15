@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -16,10 +16,15 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import Post from "../DTO/post/Post";
+import logo from "../images/logo.png";
+
+const LazyPostImage = React.lazy(() => import("./LazyPostImage"));
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: "75%",
+      minWidth: "75%",
     },
     media: {
       height: 0,
@@ -42,7 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Post = () => {
+interface Props {
+  post: Post;
+}
+
+const PostComponent = ({ post }: Props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -50,12 +59,13 @@ const Post = () => {
     setExpanded(!expanded);
   };
 
+  const date = new Date(post.createdAt);
   return (
-    <Card className={classes.root}>
+    <Card className={clsx(classes.root, "post")}>
       <CardHeader
         avatar={
           <Avatar aria-label="User" className={classes.avatar}>
-            {"UserName"[0]}
+            {post.user && post.user.username[0]}
           </Avatar>
         }
         action={
@@ -63,21 +73,17 @@ const Post = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Username"
-        subheader="Date"
+        title={post.user ? post.user.username : ""}
+        subheader={date.toLocaleString("hu-hu")}
       />
-      <CardMedia
-        className={classes.media}
-        image="https://cdn.nba.net/nba-drupal-prod/2019-09/SEO-image-NBA-logoman.jpg"
-        title="Post"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
-      </CardContent>
+      <Suspense
+        fallback={
+          <CardMedia className={classes.media} image={logo} title="Post" />
+        }
+      >
+        <LazyPostImage className={classes.media} image={post.url} />
+      </Suspense>
+
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -103,4 +109,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default PostComponent;

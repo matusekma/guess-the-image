@@ -1,5 +1,5 @@
 .new-post-mode-wrapper {
-  height: calc(100% - #{$header-height});
+  height: calc(100vh - #{$header-height});
 
   $bg: rgba(0, 0, 0, 0.2);
   $duration: 0.3s;

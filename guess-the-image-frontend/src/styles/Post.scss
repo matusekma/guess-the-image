@@ -1,7 +1,10 @@
 .post-feed {
+  min-height: 100vh;
   background-color: #0099ff;
 
   .post {
-    background-size: contain;
+    @media screen and (max-width: 576px) {
+      width: 100%;
+    }
   }
 }
