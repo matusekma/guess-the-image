@@ -113,6 +113,9 @@ const PostUploadDialog = ({ isOpen, close }: Props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
+        <button className="button-danger mr-auto" onClick={close}>
+          Mégsem
+        </button>
         <button className="button-primary" onClick={(e) => uploadPost()}>
           Feltöltés
         </button>

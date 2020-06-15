@@ -17,3 +17,23 @@ button.button-primary {
     transition: all 0.4s ease 0s;
   }
 }
+
+button.button-danger {
+  color: $danger-color;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 10px;
+  border: 2px solid $danger-color;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  border-radius: 0px;
+
+  &:hover {
+    color: #ffffff;
+    background: $danger-color;
+    border-color: $danger-color;
+    transition: all 0.4s ease 0s;
+  }
+}
