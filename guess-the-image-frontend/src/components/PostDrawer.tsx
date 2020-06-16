@@ -7,11 +7,15 @@ import {
   faUndo,
   faRedo,
   faPen,
+  faFont,
+  faIgloo,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 enum Mode {
   drawing,
   erasing,
+  text,
 }
 
 function getEraser(size: number) {
@@ -34,12 +38,21 @@ const PostDrawer = () => {
 
   function setDrawMode(mode: Mode) {
     setMode(mode);
-    if (mode === Mode.erasing && canvas) {
-      setBrushColor("#ffffff");
-      canvas.freeDrawingCursor = getEraser(lineWidth);
-    } else if (mode === Mode.drawing && canvas) {
-      setBrushColor("#000000");
-      canvas.freeDrawingCursor = pen;
+    if (canvas) {
+      if (mode === Mode.erasing) {
+        setBrushColor("#ffffff");
+        canvas.isDrawingMode = true;
+        canvas.freeDrawingCursor = getEraser(lineWidth);
+      } else if (mode === Mode.drawing) {
+        canvas.isDrawingMode = true;
+        setBrushColor("#000000");
+        canvas.freeDrawingCursor = pen;
+      } else if (mode === Mode.text) {
+        if (brushColor === "#ffffff") {
+          setBrushColor("#000000");
+        }
+        canvas.isDrawingMode = false;
+      }
     }
   }
 
@@ -92,6 +105,20 @@ const PostDrawer = () => {
       setIsRedoing(true);
       canvas.add(canvasHistory[historyLength - 1]);
       setCanvasHistory(canvasHistory.slice(0, historyLength - 1));
+    }
+  }
+
+  function addText() {
+    if (canvas) {
+      var textbox = new fabric.Textbox("Szöveg helye", {
+        left: 50,
+        top: 50,
+        width: 150,
+        fontSize: 20,
+        fill: brushColor,
+      });
+      canvas.add(textbox);
+      canvas.setActiveObject(textbox);
     }
   }
 
@@ -173,7 +200,7 @@ const PostDrawer = () => {
           <FontAwesomeIcon
             onClick={() => setDrawMode(Mode.drawing)}
             icon={faPen}
-            className={`icon mode ${
+            className={`mb-md-1 icon mode ${
               mode === Mode.drawing ? "active" : ""
             } mr-2`}
           />
@@ -182,8 +209,22 @@ const PostDrawer = () => {
             icon={faEraser}
             className={`icon mode ${
               mode === Mode.erasing ? "active" : ""
-            } mr-md-2`}
+            } mr-2`}
           />
+          <FontAwesomeIcon
+            onClick={() => setDrawMode(Mode.text)}
+            icon={faFont}
+            className={`mb-md-1 icon mode ${
+              mode === Mode.text ? "active" : ""
+            } mr-2`}
+          />
+          {mode === Mode.text && (
+            <FontAwesomeIcon
+              onClick={() => addText()}
+              icon={faPlus}
+              className="mb-md-1 icon mode active mr-2"
+            />
+          )}
         </div>
 
         <div
