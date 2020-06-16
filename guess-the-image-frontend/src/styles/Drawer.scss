@@ -77,6 +77,56 @@
   }
 }
 
-#canvas {
-  border: 2px solid black;
+.drawer-wrapper {
+  .icon {
+    font-size: 30px;
+    cursor: pointer;
+
+    &.mode {
+      opacity: 0.6;
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      font-size: 20px;
+    }
+  }
+  .line-width {
+    opacity: 0.6;
+    border: 1px solid black;
+    cursor: pointer;
+    &.active {
+      border: 3px solid black;
+      opacity: 1;
+    }
+  }
+  #line-width-1 {
+    $d: 14px;
+    width: $d;
+    height: $d;
+    border-radius: $d / 2;
+  }
+  #line-width-2 {
+    $d: 18px;
+    width: $d;
+    height: $d;
+    border-radius: $d / 2;
+  }
+  #line-width-3 {
+    $d: 22px;
+    width: $d;
+    height: $d;
+    border-radius: $d / 2;
+  }
+  .compact-picker {
+    .flexbox-fix {
+      display: none !important;
+    }
+  }
+
+  .canvas-wrapper {
+    border: 2px solid black;
+  }
 }

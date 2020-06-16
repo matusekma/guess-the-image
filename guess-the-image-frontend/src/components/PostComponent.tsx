@@ -4,26 +4,19 @@ import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import Post from "../DTO/post/Post";
 import logo from "../images/logo.png";
+import { useHistory } from "react-router-dom";
 
 const LazyPostImage = React.lazy(() => import("./LazyPostImage"));
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      minWidth: "75%",
+      minWidth: "70%",
     },
     media: {
       height: 0,
@@ -52,6 +45,7 @@ interface Props {
 
 const PostComponent = ({ post }: Props) => {
   const classes = useStyles();
+  const history = useHistory();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -60,18 +54,21 @@ const PostComponent = ({ post }: Props) => {
 
   const date = new Date(post.createdAt);
   return (
-    <Card className={clsx(classes.root, "post")}>
+    <Card
+      onClick={() => history.push(`/posts/${post.id}`)}
+      className={clsx(classes.root, "post")}
+    >
       <CardHeader
         avatar={
           <Avatar aria-label="User" className={classes.avatar}>
             {post.user && post.user.username[0]}
           </Avatar>
         }
-        action={
+        /*action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
-        }
+        }*/
         title={post.user ? post.user.username : ""}
         subheader={date.toLocaleString("hu-hu")}
       />
@@ -82,28 +79,6 @@ const PostComponent = ({ post }: Props) => {
       >
         <LazyPostImage className={classes.media} image={post.url} />
       </Suspense>
-
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>asd</CardContent>
-      </Collapse>
     </Card>
   );
 };

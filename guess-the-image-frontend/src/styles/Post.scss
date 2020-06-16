@@ -1,8 +1,9 @@
 .post-feed {
-  height: calc(100vh - #{$header-height});
+  min-height: calc(100vh - #{$header-height});
   background-color: $light-blue;
 
   .post {
+    cursor: pointer;
     @media screen and (max-width: 576px) {
       width: 100%;
     }
@@ -10,9 +11,10 @@
 
   .fab-add-post {
     background-color: $danger-color;
-    position: absolute;
-    bottom: 10%;
-    right: 10%;
+    color: white;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
 
     a {
       color: black;
