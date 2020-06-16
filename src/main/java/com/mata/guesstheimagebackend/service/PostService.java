@@ -2,7 +2,6 @@ package com.mata.guesstheimagebackend.service;
 
 import com.mata.guesstheimagebackend.dao.PostRepository;
 import com.mata.guesstheimagebackend.dao.UserRepository;
-import com.mata.guesstheimagebackend.model.Comment;
 import com.mata.guesstheimagebackend.model.Post;
 import com.mata.guesstheimagebackend.model.User;
 import org.springframework.data.domain.Page;
@@ -19,12 +18,10 @@ public class PostService {
 
     private final UserService userService;
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     public PostService(UserService userService, PostRepository postRepository, UserRepository userRepository) {
         this.userService = userService;
         this.postRepository = postRepository;
-        this.userRepository = userRepository;
     }
 
     public Post createPost(String url) {
@@ -45,14 +42,4 @@ public class PostService {
                 PageRequest.of(page, pageSize, Sort.by("createdAt").descending());
         return postRepository.findAll(pagedAndSortedByDate);
     }
-
-    /*public void addCommentToPost(Long postId, AddCommentRequest addCommentRequest) {
-        User me = userService.getAuthenticatedUser().orElseThrow(() -> new UsernameNotFoundException("No user data!"));
-        Comment comment = new Comment();
-        me.addComment(comment);
-        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("No such post!"));
-        post.addComment(comment);
-        postRepository.save(post);
-        userRepository.save(me);
-    }*/
 }

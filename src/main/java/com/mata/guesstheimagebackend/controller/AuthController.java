@@ -37,6 +37,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@DTO(RegisterRequest.class) User user) {
-        return new ResponseEntity<>(modelMapper.map(authService.register(user), UserResponse.class), HttpStatus.OK);
+        return new ResponseEntity<>(modelMapper.map(authService.register(user), UserResponse.class), HttpStatus.CREATED);
     }
 }
