@@ -32,6 +32,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @OrderBy("createdAt ASC")
     private List<Comment> comments;
 
     @NotNull

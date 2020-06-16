@@ -31,7 +31,7 @@ public class PostController {
     public ResponseEntity<PostResponse> createPost(@RequestParam("file") MultipartFile file) throws IOException {
         String url = storageService.store(file);
         Post post = postService.createPost(url);
-        return new ResponseEntity<>(convertToDto(post), HttpStatus.OK);
+        return new ResponseEntity<>(convertToDto(post), HttpStatus.CREATED);
     }
 
     @GetMapping("/posts/{id}")
@@ -47,8 +47,7 @@ public class PostController {
     }
 
     private PostResponse convertToDto(Post post) {
-        PostResponse postResponse = modelMapper.map(post, PostResponse.class);
-        return postResponse;
+        return modelMapper.map(post, PostResponse.class);
     }
 
     /*

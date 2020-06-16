@@ -5,22 +5,21 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @Getter
 @Setter
-public class PostResponse {
+public class CommentResponse {
     @NotNull
     private Long id;
 
     @NotNull
-    private String url;
+    private String text;
+
+    @NotNull
+    private boolean isCorrect;
 
     private LocalDateTime createdAt;
 
-    private List<CommentResponse> comments;
-
     @NotNull
-    private UserResponse user;
+    private CommentUserResponse user;
 }

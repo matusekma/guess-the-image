@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,8 +24,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "writtenOn")
-    private LocalDateTime writtenOn;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Size(max = 1000)
     private String text;
@@ -38,8 +39,6 @@ public class Comment {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
-
-
 }
