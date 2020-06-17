@@ -1,6 +1,7 @@
 package com.mata.guesstheimagebackend.controller;
 
 import com.mata.guesstheimagebackend.dto.PostResponse;
+import com.mata.guesstheimagebackend.dto.PostWithoutCommentsAndUserResponse;
 import com.mata.guesstheimagebackend.dto.PostWithoutCommentsResponse;
 import com.mata.guesstheimagebackend.model.Post;
 import com.mata.guesstheimagebackend.service.IStorageService;
@@ -47,12 +48,22 @@ public class PostController {
         return new ResponseEntity<>(posts.map(this::convertToPostResponseWithoutComments), HttpStatus.OK);
     }
 
+    @GetMapping("/posts/me")
+    public ResponseEntity<Page<PostWithoutCommentsAndUserResponse>> getMyPostsByPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
+        Page<Post> posts = postService.getMyPosts(page, pageSize);
+        return new ResponseEntity<>(posts.map(this::convertToPostWithoutCommentsAndUserResponse), HttpStatus.OK);
+    }
+
     private PostResponse convertToPostResponse(Post post) {
         return modelMapper.map(post, PostResponse.class);
     }
 
     private PostWithoutCommentsResponse convertToPostResponseWithoutComments(Post post) {
         return modelMapper.map(post, PostWithoutCommentsResponse.class);
+    }
+
+    private PostWithoutCommentsAndUserResponse convertToPostWithoutCommentsAndUserResponse(Post post) {
+        return modelMapper.map(post, PostWithoutCommentsAndUserResponse.class);
     }
 
 }

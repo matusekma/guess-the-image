@@ -33,13 +33,19 @@ public class PostService {
     }
 
     public Post getPostById(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post with the given id was not found!"));
-        return post;
+        return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post with the given id was not found!"));
     }
 
     public Page<Post> getPostsPage(int page, int pageSize) {
         Pageable pagedAndSortedByDate =
                 PageRequest.of(page, pageSize, Sort.by("createdAt").descending());
         return postRepository.findAll(pagedAndSortedByDate);
+    }
+
+    public Page<Post> getMyPosts(int page, int pageSize) {
+        User me = userService.getAuthenticatedUser().orElseThrow(() -> new UsernameNotFoundException("No user data!"));
+        Pageable pagedAndSortedByDate =
+                PageRequest.of(page, pageSize, Sort.by("createdAt").descending());
+        return postRepository.findAllByUserId(pagedAndSortedByDate, me.getId());
     }
 }
