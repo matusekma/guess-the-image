@@ -1,7 +1,7 @@
-import Post from "./Post";
+import PostWithoutComments from "./PostWithoutComments";
 
 export default interface PostPage {
-  posts: Post[];
+  posts: PostWithoutComments[];
   page: number;
   pageSize: number;
   totalPages: number;
@@ -9,7 +9,7 @@ export default interface PostPage {
 }
 
 export type PostPageResponse = {
-  content: Post[];
+  content: PostWithoutComments[];
   pageable: {
     sort: {
       sorted: boolean;

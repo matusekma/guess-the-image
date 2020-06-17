@@ -7,7 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
 import { red } from "@material-ui/core/colors";
 
-import Post from "../DTO/post/Post";
+import PostWithoutComments from "../DTO/post/PostWithoutComments";
 import logo from "../images/logo.png";
 import { useHistory } from "react-router-dom";
 
@@ -40,17 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  post: Post;
+  post: PostWithoutComments;
 }
 
-const PostComponent = ({ post }: Props) => {
+const PostListElementComponent = ({ post }: Props) => {
   const classes = useStyles();
   const history = useHistory();
-  //const [expanded, setExpanded] = React.useState(false);
-
-  /*const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };*/
 
   const date = new Date(post.createdAt);
   return (
@@ -64,11 +59,6 @@ const PostComponent = ({ post }: Props) => {
             {post.user && post.user.username[0]}
           </Avatar>
         }
-        /*action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }*/
         title={post.user ? post.user.username : ""}
         subheader={date.toLocaleString("hu-hu")}
       />
@@ -83,4 +73,4 @@ const PostComponent = ({ post }: Props) => {
   );
 };
 
-export default PostComponent;
+export default PostListElementComponent;

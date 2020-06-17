@@ -5,12 +5,16 @@ import { Add } from "@material-ui/icons";
 
 import { getPostsCall } from "../apiCalls/postApiCalls";
 import debounce from "lodash.debounce";
-import Post from "../DTO/post/Post";
-import PostComponent from "./PostComponent";
+import PostWithoutComments from "../DTO/post/PostWithoutComments";
+import PostComponent from "./PostListElementComponent";
+import PostPage from "../DTO/post/PostPage";
 
-const LazyInfinitePostFeed = () => {
+interface Props {
+  getPosts: (page?: number, pageSize?: number) => Promise<PostPage>;
+}
+const LazyInfinitePostFeed = ({ getPosts }: Props) => {
   const history = useHistory();
-  const [postList, setPostList] = useState<Post[]>([]);
+  const [postList, setPostList] = useState<PostWithoutComments[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -28,18 +32,15 @@ const LazyInfinitePostFeed = () => {
         (window.innerHeight + document.documentElement.scrollTop) <
         10
     ) {
-      console.log("scroll");
       setIsFetching(true);
     }
   }, 100);
 
   const fetchData = async () => {
-    const postPage = await getPostsCall(page);
+    const postPage = await getPosts(page);
     setTotalPages(postPage.totalPages);
     setPage(page + 1);
-    setPostList(() => {
-      return [...postList, ...postPage.posts];
-    });
+    setPostList([...postList, ...postPage.posts]);
   };
 
   useEffect(() => {

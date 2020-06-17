@@ -5,7 +5,7 @@ import PostPage, {
   convertToPostPage,
 } from "../DTO/post/PostPage";
 
-export function getPostCall(id: string) {
+export function getPostCall(id: number) {
   return doApiCall<Post>("get", `/posts/${id}`);
 }
 

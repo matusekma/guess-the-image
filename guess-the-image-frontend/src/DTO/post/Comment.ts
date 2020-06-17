@@ -1,11 +1,17 @@
+export enum CommentStatus {
+  INITIAL = "INITIAL",
+  CORRECT = "CORRECT",
+  INCORRECT = "INCORRECT",
+}
+
 export default interface Comment {
   id: number;
 
   text: string;
 
-  isCorrect: boolean;
+  status: CommentStatus;
 
   createdAt: string;
 
-  username: string;
+  user: { username: string };
 }

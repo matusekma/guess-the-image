@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -53,8 +53,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/archive" className="nav-link">
-                  Archívum
+                <Link to="/myposts" className="nav-link">
+                  Posztjaim
                 </Link>
               </li>
               <li className="nav-item">

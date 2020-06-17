@@ -1,15 +1,6 @@
-import User from "../user/User";
+import PostWithoutComments from "./PostWithoutComments";
+import Comment from "./Comment";
 
-export default interface Post {
-  id: number;
-
-  url: string;
-
-  createdAt: string;
-
-  archived: boolean;
-
+export default interface Post extends PostWithoutComments {
   comments: Comment[];
-
-  user: User;
 }

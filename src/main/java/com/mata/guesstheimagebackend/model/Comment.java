@@ -31,8 +31,9 @@ public class Comment {
     private String text;
 
     @NotNull
-    @Column(columnDefinition = "boolean default false")
-    private boolean isCorrect;
+    @Column(length = 32, columnDefinition = "varchar(32) default 'INITIAL'")
+    @Enumerated(value = EnumType.STRING)
+    private CommentStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
