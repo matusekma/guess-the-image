@@ -9,11 +9,3 @@ export function loginCall(loginData: LoginData) {
 export function registerCall(registerData: RegistrationData) {
   return doApiCall<string>("post", "/register", registerData);
 }
-
-/*export function addOrUpdateCourseCall(course: Course, isNew: boolean) {
-  return doApiCall<Course>(
-    isNew ? "post" : "put",
-    isNew ? "api/courses" : `/api/courses/${course.id}`,
-    course
-  );
-}*/

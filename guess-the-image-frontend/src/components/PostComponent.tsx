@@ -46,11 +46,11 @@ interface Props {
 const PostComponent = ({ post }: Props) => {
   const classes = useStyles();
   const history = useHistory();
-  const [expanded, setExpanded] = React.useState(false);
+  //const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
+  /*const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
+  };*/
 
   const date = new Date(post.createdAt);
   return (

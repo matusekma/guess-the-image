@@ -94,18 +94,17 @@ const PostUploadDialog = ({ isOpen, close }: Props) => {
               />
             </div>
           )}
-          {error ||
-            (loading && (
-              <div
-                className={`row justify-content-center ${
-                  error ? "error" : ""
-                } mt-2`}
-              >
-                <div>
-                  <b>{loading || error}</b>
-                </div>
+          {(error || loading) && (
+            <div
+              className={`row justify-content-center ${
+                error ? "error" : ""
+              } mt-2`}
+            >
+              <div>
+                <b>{loading || error}</b>
               </div>
-            ))}
+            </div>
+          )}
         </div>
 
         <DialogContentText>

@@ -8,9 +8,11 @@ import {
   faRedo,
   faPen,
   faFont,
-  faIgloo,
   faPlus,
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
+import { createPostCall } from "../apiCalls/postApiCalls";
+import { useHistory } from "react-router-dom";
 
 enum Mode {
   drawing,
@@ -27,6 +29,9 @@ function getEraser(size: number) {
 const pen = "crosshair";
 
 const PostDrawer = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState("");
+  const [error, setError] = useState("");
   const [canvas, setCanvas] = useState<fabric.Canvas>();
   const [canvasHistory, setCanvasHistory] = useState<fabric.Object[]>([]);
   const [isRedoing, setIsRedoing] = useState(false);
@@ -129,20 +134,53 @@ const PostDrawer = () => {
     }
   }, [brushColor, lineWidth]);
 
-  function downloadImage() {
-    const image =
+  function uploadImage(image: Blob | null) {
+    console.log(image);
+    if (image) {
+      const formData = new FormData();
+      formData.append("file", image);
+      setLoading("Feltöltés...");
+      createPostCall(formData)
+        .then((data) => {
+          history.push("/");
+        })
+        .catch((error) => {
+          setLoading("");
+          setError("A kép feltöltése nem sikerült, próbáld újra!");
+        });
+    }
+  }
+
+  function getImageBlobFromCanvasAndUpload() {
+    if (canvas) {
+      return canvas.getElement().toBlob((blob) => uploadImage(blob));
+    }
+  }
+
+  function getImageFromCanvas() {
+    return (
       canvas &&
       canvas.toDataURL({
-        format: "png",
+        format: "jpeg",
         quality: 1,
-      });
+      })
+    );
+  }
 
-    const link = document.createElement("a");
-    link.setAttribute("download", fileName || "image_" + new Date().getTime());
-    link.href = image || "";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  function downloadImage() {
+    console.log();
+    const image = getImageFromCanvas();
+    if (image) {
+      const link = document.createElement("a");
+      link.setAttribute(
+        "download",
+        fileName || "image_" + new Date().getTime()
+      );
+      link.href = image || "";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   }
 
   return (
@@ -171,7 +209,7 @@ const PostDrawer = () => {
           <div
             id="line-width-1"
             className={`line-width my-2 my-md-0 mr-md-2 ${
-              lineWidth === 2 || lineWidth == 4 ? "active" : ""
+              lineWidth === 2 || lineWidth === 4 ? "active" : ""
             }`}
             style={{ backgroundColor: brushColor }}
             onClick={() => setWidth(2)}
@@ -179,7 +217,7 @@ const PostDrawer = () => {
           <div
             id="line-width-2"
             className={`line-width mb-2 mb-md-0 mr-md-2 ${
-              lineWidth === 6 || lineWidth == 12 ? "active" : ""
+              lineWidth === 6 || lineWidth === 12 ? "active" : ""
             }`}
             style={{ backgroundColor: brushColor }}
             onClick={() => setWidth(6)}
@@ -187,7 +225,7 @@ const PostDrawer = () => {
           <div
             id="line-width-3"
             className={`line-width mb-2 mb-md-0 ${
-              lineWidth === 10 || lineWidth == 20 ? "active" : ""
+              lineWidth === 10 || lineWidth === 20 ? "active" : ""
             }`}
             style={{ backgroundColor: brushColor }}
             onClick={() => setWidth(10)}
@@ -236,17 +274,38 @@ const PostDrawer = () => {
         </div>
       </div>
 
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mb-2">
+        <button
+          className="button-primary"
+          onClick={(e) => getImageBlobFromCanvasAndUpload()}
+        >
+          Feltöltés
+          <FontAwesomeIcon className="ml-2" icon={faUpload} />
+        </button>
+      </div>
+      <div className="row justify-content-center mb-2">
         <input
-          className="input-primary mr-2 mb-2 mb-sm-0"
+          className="input-primary mr-2 mb-2 mb-md-0"
           placeholder="Fájlnév"
           value={fileName}
           onChange={(e) => setFileName(e.target.value)}
         />
-        <button className="button-primary" onClick={(e) => downloadImage()}>
+        <button
+          className="button-primary mb-2 mb-md-0"
+          onClick={(e) => downloadImage()}
+        >
           Letöltés
         </button>
       </div>
+      {(error || loading) && (
+        <div
+          className={`row justify-content-center ${error ? "error" : ""} mt-2`}
+        >
+          <div>
+            <b>{loading || error}</b>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
