@@ -91,6 +91,7 @@ const PostDrawer = () => {
       setIsRedoing(false);
     });
     setCanvas(canvas);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function undo() {
@@ -132,6 +133,7 @@ const PostDrawer = () => {
       canvas.freeDrawingBrush.color = brushColor;
       canvas.freeDrawingBrush.width = lineWidth;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brushColor, lineWidth]);
 
   function uploadImage(image: Blob | null) {

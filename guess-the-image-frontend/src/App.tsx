@@ -11,7 +11,7 @@ import Profile from "./components/Profile";
 import PostDrawer from "./components/PostDrawer";
 import NewPostModePicker from "./components/NewPostModePicker";
 import LazyInfinitePostFeed from "./components/LazyInfinitePostFeed";
-import { getPostsCall } from "./apiCalls/postApiCalls";
+import { getPostsCall, getMyPostsCall } from "./apiCalls/postApiCalls";
 import PostDetailsPage from "./components/PostDetailsPage";
 
 export const history = createBrowserHistory();
@@ -32,14 +32,14 @@ function App() {
             }}
           />
         </Route>
-        <PrivateRouteContainer exact path="/posts">
+        <PrivateRouteContainer key="posts" exact path="/posts">
           <LazyInfinitePostFeed getPosts={getPostsCall} />
         </PrivateRouteContainer>
         <PrivateRouteContainer exact path="/posts/:id">
           <PostDetailsPage />
         </PrivateRouteContainer>
-        <PrivateRouteContainer exact path="/myposts">
-          <LazyInfinitePostFeed getPosts={getPostsCall} />
+        <PrivateRouteContainer key="myposts" exact path="/myposts">
+          <LazyInfinitePostFeed getPosts={getMyPostsCall} />
         </PrivateRouteContainer>
         <PrivateRouteContainer exact path="/new">
           <NewPostModePicker />

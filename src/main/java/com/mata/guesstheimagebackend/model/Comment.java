@@ -33,7 +33,7 @@ public class Comment {
     @NotNull
     @Column(length = 32, columnDefinition = "varchar(32) default 'INCORRECT'")
     @Enumerated(value = EnumType.STRING)
-    private CommentStatus status;
+    private CommentStatus status = CommentStatus.INCORRECT;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

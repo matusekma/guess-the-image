@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 
 import { red } from "@material-ui/core/colors";
 import {
@@ -11,16 +10,16 @@ import {
   Divider,
   IconButton,
   Avatar,
+  Tooltip,
 } from "@material-ui/core";
 import { ChangeHistory, PlayArrow } from "@material-ui/icons";
 
 import Comment, { CommentStatus } from "../DTO/post/Comment";
+import { RootState } from "../reducers/rootReducer";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      minWidth: "70%",
-    },
     action: {
       alignSelf: "center",
     },
@@ -32,44 +31,73 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: red[500],
     },
-    inline: {
-      display: "inline",
-    },
   })
 );
 
 interface Props {
+  postCreatorId: number;
   comments: Comment[];
   setCommentStatus: (commentId: number, status: CommentStatus) => void;
 }
 
-function getStatusIcon(status: CommentStatus) {
+function getStatusIcon(
+  status: CommentStatus,
+  statusSetter: () => void,
+  canChangeStatus: boolean
+) {
+  let icon;
   switch (status) {
     case CommentStatus.CORRECT:
-      return (
-        <IconButton style={{ color: "green" }}>
-          <PlayArrow style={{ transform: "rotate(-90deg)" }} fontSize="large" />
-        </IconButton>
+      icon = (
+        <PlayArrow
+          style={{
+            transform: "rotate(-90deg)",
+            color: "green",
+            fontSize: "2.4rem",
+          }}
+        />
       );
-    case CommentStatus.INCORRECT:
+      if (canChangeStatus) {
+        return (
+          <IconButton title="Helytelennek jelölés" onClick={statusSetter}>
+            {icon}
+          </IconButton>
+        );
+      }
       return (
-        <IconButton style={{ color: "red" }}>
-          <ChangeHistory fontSize="large" />
-        </IconButton>
+        <Tooltip title="Helyes" aria-label="helyes">
+          {icon}
+        </Tooltip>
+      );
+
+    case CommentStatus.INCORRECT:
+      icon = <ChangeHistory style={{ color: "red", fontSize: "2rem" }} />;
+      if (canChangeStatus) {
+        return (
+          <IconButton title="Helyesnek jelölés" onClick={statusSetter}>
+            {icon}
+          </IconButton>
+        );
+      }
+      return (
+        <Tooltip title="Helytelen" aria-label="helytelen">
+          {icon}
+        </Tooltip>
       );
     default:
       return undefined;
   }
 }
 
-const PostComments = ({ comments, setCommentStatus }: Props) => {
+const PostComments = ({ postCreatorId, comments, setCommentStatus }: Props) => {
   const classes = useStyles();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   return (
     <React.Fragment>
       {comments.length > 0
         ? comments.map((comment) => (
-            <Card className={clsx(classes.root, "post-details mb-2")}>
+            <Card key={comment.id} className="w-100 mb-2">
               <CardHeader
                 classes={{ action: classes.action }}
                 avatar={
@@ -80,32 +108,26 @@ const PostComments = ({ comments, setCommentStatus }: Props) => {
                 title={comment.user.username}
                 subheader={new Date(comment.createdAt).toLocaleString("hu-hu")}
                 action={
-                  <div
-                    onClick={() =>
-                      setCommentStatus(
-                        comment.id,
-                        comment.status === CommentStatus.CORRECT
-                          ? CommentStatus.INCORRECT
-                          : CommentStatus.CORRECT
-                      )
-                    }
-                  >
-                    {getStatusIcon(comment.status)}
+                  <div>
+                    {getStatusIcon(
+                      comment.status,
+                      () =>
+                        setCommentStatus(
+                          comment.id,
+                          comment.status === CommentStatus.CORRECT
+                            ? CommentStatus.INCORRECT
+                            : CommentStatus.CORRECT
+                        ),
+                      !!user && postCreatorId === user.id
+                    )}
                   </div>
                 }
               />
               <Divider />
               <CardContent>
-                <div className="d-flex align-items-center">
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    {comment.text}
-                  </Typography>
-                </div>
+                <Typography variant="body2" color="textPrimary" component="p">
+                  {comment.text}
+                </Typography>
               </CardContent>
             </Card>
           ))

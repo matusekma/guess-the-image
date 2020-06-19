@@ -31,7 +31,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
-    @OrderBy("createdAt ASC")
+    @OrderBy("createdAt DESC")
     private List<Comment> comments;
 
     @NotNull

@@ -16,6 +16,13 @@ button.button-primary {
     border-color: $primary-color;
     transition: all 0.4s ease 0s;
   }
+
+  &:disabled {
+    color: #ffffff;
+    background: gray;
+    border-color: gray;
+    transition: all 0.4s ease 0s;
+  }
 }
 
 button.button-danger {

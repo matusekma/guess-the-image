@@ -12,3 +12,7 @@ export function updateCommentStatus(
     { status }
   );
 }
+
+ export function createCommentForPost(postId: number, text: string) {
+  return doApiCall<Comment>("post", `posts/${postId}/comments`, { text });
+}

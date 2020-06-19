@@ -64,6 +64,7 @@ function PrivateRoute({
     } catch {
       // Invalid token, do nothing
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, reduxToken, reduxUser]);
 
   return (

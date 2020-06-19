@@ -1,7 +1,5 @@
 import React, { Suspense } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -17,9 +15,6 @@ const LazyPostImage = React.lazy(() => import("./LazyPostImage"));
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      minWidth: "70%",
-    },
     media: {
       height: 0,
       paddingTop: "56.25%", // 16:9
@@ -40,12 +35,11 @@ interface Props {
 
 const PostDetails = ({ post }: Props) => {
   const classes = useStyles();
-  const history = useHistory();
 
   const date = new Date(post.createdAt);
 
   return (
-    <Card className={clsx(classes.root, "post-details")}>
+    <Card className="post-details w-100">
       <CardHeader
         avatar={
           <Avatar aria-label="User" className={classes.avatar}>
