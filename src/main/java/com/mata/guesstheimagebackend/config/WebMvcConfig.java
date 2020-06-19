@@ -44,7 +44,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/{x:[\\w\\-]+}")
                 .setViewName("forward:/index.html");
         // Multi-level directory path, need to exclude "api" on the first part of the path
-        registry.addViewController("/{x:^(?!\\/api|\\/swagger\\-ui\\.html).*$}/**/{y:[\\w\\-]+}")
+        registry.addViewController("/{x:^(?!api|swagger\\-ui\\.html).*$}/**/{y:[\\w\\-]+}")
                 .setViewName("forward:/index.html");
     }
 }
