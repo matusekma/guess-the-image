@@ -4,6 +4,7 @@ import {
   CardContent,
   TextField,
   CircularProgress,
+  Typography,
 } from "@material-ui/core";
 
 interface Props {
@@ -28,7 +29,7 @@ const PostCommentWriter = ({ createComment, loading }: Props) => {
           }}
         >
           <div className="container-fluid align-items-center">
-            <div className="row">
+            <div className="row mb-1">
               <TextField
                 fullWidth
                 multiline
@@ -39,17 +40,27 @@ const PostCommentWriter = ({ createComment, loading }: Props) => {
                 onChange={(e) => setCommentText(e.target.value)}
               />
             </div>
-            <div className="row justify-content-end">
+            <div className="row align-items-center">
               {loading ? (
                 <CircularProgress className="mt-2" />
               ) : (
-                <button
-                  className="button-primary mt-2"
-                  disabled={!commentText}
-                  type="submit"
-                >
-                  Küldés
-                </button>
+                <>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    *A tipp helyességét a poszt létrehozója jelölheti zöld vagy
+                    piros háromszöggel.
+                  </Typography>
+                  <button
+                    className="button-primary mt-2 ml-auto"
+                    disabled={!commentText}
+                    type="submit"
+                  >
+                    Küldés
+                  </button>
+                </>
               )}
             </div>
           </div>
