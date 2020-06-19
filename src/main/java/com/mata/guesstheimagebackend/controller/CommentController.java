@@ -2,7 +2,9 @@ package com.mata.guesstheimagebackend.controller;
 
 import com.mata.guesstheimagebackend.dto.AddCommentRequest;
 import com.mata.guesstheimagebackend.dto.CommentResponse;
+import com.mata.guesstheimagebackend.dto.UpdateCommentStatusRequest;
 import com.mata.guesstheimagebackend.model.Comment;
+import com.mata.guesstheimagebackend.model.CommentStatus;
 import com.mata.guesstheimagebackend.service.CommentService;
 import com.mata.guesstheimagebackend.util.DTO;
 import org.modelmapper.ModelMapper;
@@ -26,6 +28,12 @@ public class CommentController {
     public ResponseEntity<CommentResponse> postComment(@PathVariable Long postId, @DTO(AddCommentRequest.class) Comment comment)  {
         Comment createdComment = commentService.addCommentToPost(postId, comment);
         return new ResponseEntity<>(convertToDto(createdComment), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/posts/{postId}/comments/{commentId}/status")
+    public ResponseEntity<CommentResponse> updateCommentStatus(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody UpdateCommentStatusRequest statusRequest)  {
+        Comment updatedComment = commentService.updateCommentStatus(postId, commentId, statusRequest.getStatus());
+        return new ResponseEntity<>(convertToDto(updatedComment), HttpStatus.OK);
     }
 
     /*@GetMapping("/posts/{id}")

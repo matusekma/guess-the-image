@@ -12,15 +12,7 @@ import logo from "../images/logo.png";
 
 import Post from "../DTO/post/Post";
 import {
-  CardContent,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-  Divider,
-  ListItemIcon,
-  ListItemSecondaryAction,
+  CardContent
 } from "@material-ui/core";
 import { CommentStatus } from "../DTO/post/Comment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,16 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 0,
       paddingTop: "56.25%", // 16:9
       backgroundSize: "contain",
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: "rotate(180deg)",
     },
     avatar: {
       backgroundColor: red[500],
@@ -79,10 +61,7 @@ const PostDetails = ({ post }: Props) => {
   const date = new Date(post.createdAt);
 
   return (
-    <Card
-      onClick={() => history.push(`/posts/${post.id}`)}
-      className={clsx(classes.root, "post-details")}
-    >
+    <Card className={clsx(classes.root, "post-details")}>
       <CardHeader
         avatar={
           <Avatar aria-label="User" className={classes.avatar}>
@@ -92,49 +71,15 @@ const PostDetails = ({ post }: Props) => {
         title={post.user ? post.user.username : ""}
         subheader={date.toLocaleString("hu-hu")}
       />
-      <Suspense
-        fallback={
-          <CardMedia className={classes.media} image={logo} title="Post" />
-        }
-      >
-        <LazyPostImage className={classes.media} image={post.url} />
-      </Suspense>
-      {post.comments.length > 0 && (
-        <CardContent>
-          <List className={classes.root}>
-            {post.comments.map((comment) => (
-              <>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar aria-label="User" className={classes.avatar}>
-                      {comment.user.username[0]}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={comment.user.username}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          {comment.text}
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  />
-                  <ListItemSecondaryAction>
-                    {getStatusIcon(comment.status)}
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </>
-            ))}
-          </List>
-        </CardContent>
-      )}
+      <CardContent>
+        <Suspense
+          fallback={
+            <CardMedia className={classes.media} image={logo} title="Post" />
+          }
+        >
+          <LazyPostImage className={classes.media} image={post.url} />
+        </Suspense>
+      </CardContent>
     </Card>
   );
 };

@@ -8,7 +8,7 @@ button.button-primary {
   border: 2px solid $primary-color;
   display: inline-block;
   transition: all 0.4s ease 0s;
-  border-radius: 0px;
+  border-radius: 0;
 
   &:hover {
     color: #ffffff;
@@ -36,4 +36,8 @@ button.button-danger {
     border-color: $danger-color;
     transition: all 0.4s ease 0s;
   }
+}
+
+button:focus {
+  outline: none !important;
 }

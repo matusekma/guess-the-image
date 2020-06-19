@@ -31,7 +31,7 @@ public class Comment {
     private String text;
 
     @NotNull
-    @Column(length = 32, columnDefinition = "varchar(32) default 'INITIAL'")
+    @Column(length = 32, columnDefinition = "varchar(32) default 'INCORRECT'")
     @Enumerated(value = EnumType.STRING)
     private CommentStatus status;
 
