@@ -33,7 +33,7 @@ const PostCommentWriter = ({ createComment, loading }: Props) => {
                 fullWidth
                 multiline
                 rows={3}
-                placeholder="Írj egy tippet..."
+                placeholder="Írj egy tippet/kommentet..."
                 variant="outlined"
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
