@@ -1,3 +1,5 @@
+import User from "../../DTO/user/User";
+
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
@@ -7,6 +9,7 @@ export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export interface LoginSuccessAction {
   type: typeof LOGIN_SUCCESS;
   token?: string | null;
+  user?: User | null;
 }
 
 export interface LoginFailureAction {

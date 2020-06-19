@@ -2,6 +2,7 @@ package com.mata.guesstheimagebackend.controller;
 
 import com.mata.guesstheimagebackend.dao.UserRepository;
 import com.mata.guesstheimagebackend.dto.AuthRequest;
+import com.mata.guesstheimagebackend.dto.LoginResponse;
 import com.mata.guesstheimagebackend.dto.RegisterRequest;
 import com.mata.guesstheimagebackend.dto.UserResponse;
 import com.mata.guesstheimagebackend.model.User;
@@ -27,12 +28,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) throws Exception {
-        String jwtToken = authService.login(authRequest);
-        if (jwtToken == null) {
+    public ResponseEntity<LoginResponse> login(@RequestBody AuthRequest authRequest) throws Exception {
+        LoginResponse loginResponse = authService.login(authRequest);
+        if (loginResponse == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
     @PostMapping("/register")

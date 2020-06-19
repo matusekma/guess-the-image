@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import Navbar from "./Navbar";
 import { PropsFromRedux } from "../containers/PrivateRouteContainer";
 import { RootState } from "../reducers/rootReducer";
-import { loginSuccess } from "../actions/auth/actionCreators";
+import { loginSuccess, logout } from "../actions/auth/actionCreators";
 import { history } from "../App";
 import { axiosInstance } from "../apiCalls/axiosConfig";
 
@@ -26,25 +26,45 @@ function PrivateRoute({
   ...rest
 }: PrivateRouteProps & PropsFromRedux & any) {
   const reduxToken = useSelector((state: RootState) => state.auth.token);
+  const reduxUser = useSelector((state: RootState) => state.auth.user);
   const location = useLocation();
   const dispatch = useDispatch();
 
   // HANDLE REFRESH
   useEffect(() => {
     try {
-      let token = reduxToken;
-      if (!token) {
-        token = localStorage.getItem("token");
-      }
-      if (token && checkTokenNotExpired(token)) {
-        dispatch(loginSuccess(token));
-        axiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`;
-        history.push(location.pathname);
+      let user = null;
+      let token = null;
+      if (!reduxUser || !reduxToken) {
+        let auth: string | any = localStorage.getItem("auth");
+        if (auth) {
+          auth = JSON.parse(auth);
+          token = auth && auth.token;
+          user = auth && auth.user;
+          if (user && token) {
+            if (checkTokenNotExpired(token)) {
+              dispatch(loginSuccess(token, user));
+              axiosInstance.defaults.headers[
+                "Authorization"
+              ] = `Bearer ${token}`;
+              history.push(location.pathname);
+            } else {
+              // remove expired token
+              localStorage.removeItem("auth");
+              dispatch(logout());
+              axiosInstance.defaults.headers["Authorization"] = undefined;
+            }
+          }
+        }
+      } else if (!checkTokenNotExpired(reduxToken)) {
+        // redux Token expired
+        dispatch(logout());
+        axiosInstance.defaults.headers["Authorization"] = undefined;
       }
     } catch {
       // Invalid token, do nothing
     }
-  }, [dispatch, reduxToken]);
+  }, [dispatch, reduxToken, reduxUser]);
 
   return (
     <Route

@@ -11,12 +11,7 @@ import { red } from "@material-ui/core/colors";
 import logo from "../images/logo.png";
 
 import Post from "../DTO/post/Post";
-import {
-  CardContent
-} from "@material-ui/core";
-import { CommentStatus } from "../DTO/post/Comment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { CardContent } from "@material-ui/core";
 
 const LazyPostImage = React.lazy(() => import("./LazyPostImage"));
 
@@ -41,17 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   post: Post;
-}
-
-function getStatusIcon(status: CommentStatus) {
-  switch (status) {
-    case CommentStatus.CORRECT:
-      return <FontAwesomeIcon icon={faCheck} />;
-    case CommentStatus.INCORRECT:
-      return <FontAwesomeIcon icon={faTimes} />;
-    default:
-      return undefined;
-  }
 }
 
 const PostDetails = ({ post }: Props) => {

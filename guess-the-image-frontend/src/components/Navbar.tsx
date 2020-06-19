@@ -15,7 +15,7 @@ import { axiosInstance } from "../apiCalls/axiosConfig";
 const Navbar = () => {
   const dispatch = useDispatch();
   const logoutUser = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("auth");
     axiosInstance.defaults.headers["Authorization"] = undefined;
     dispatch(logout());
   };

@@ -16,11 +16,17 @@ import RegistrationData from "../../DTO/auth/RegistrationData";
 import { AppThunk } from "../../store";
 import { history } from "../../App";
 import { axiosInstance } from "../../apiCalls/axiosConfig";
+import User from "../../DTO/user/User";
+import LoginResponse from "../../DTO/auth/LoginResponse";
 
-export function loginSuccess(token: string | null): LoginSuccessAction {
+export function loginSuccess(
+  token: string | null,
+  user?: User | null
+): LoginSuccessAction {
   return {
     type: LOGIN_SUCCESS,
     token,
+    user,
   };
 }
 
@@ -40,11 +46,17 @@ export function logout(): LogoutAction {
 export function login(loginData: LoginData): AppThunk {
   return (dispatch) => {
     loginCall(loginData)
-      .then((token: string) => {
-        localStorage.setItem("token", token);
-        dispatch(loginSuccess(token));
-        axiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`;
-        history.push("/");
+      .then((loginResponse: LoginResponse) => {
+        if (loginResponse) {
+          localStorage.setItem("auth", JSON.stringify(loginResponse));
+          dispatch(loginSuccess(loginResponse.token, loginResponse.user));
+          axiosInstance.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${loginResponse.token}`;
+          history.push("/");
+        } else {
+          dispatch(loginFailure("Sikertelen belépés."));
+        }
       })
       .catch((e) => dispatch(loginFailure(e.message)));
   };
